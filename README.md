@@ -30,7 +30,7 @@ bash ../scripts/04_validate_fasta.sh
 bash ../scripts/05_run_preprocessr.sh 150
 bash ../scripts/06_summarize_kmers.sh
 bash ../scripts/07_seqkit_stats.sh
-bash ../scripts/08_render_quality_report.sh
+bash ../scripts/12_render_informative_report.sh
 ```
 
 `150` debe reemplazarse por la longitud real de las lecturas FASTQ. Se puede comprobar con:
@@ -50,9 +50,9 @@ gzip -cd reads/muestra_R1.fastq.gz | awk 'NR==2 {print length($0); exit}'
 | `05_run_preprocessr.sh` | Construye `StrainR2DB`. Puede tardar más de 100 minutos. |
 | `06_summarize_kmers.sh` | Resume `KmerContent.report` por cepa y globalmente. |
 | `07_seqkit_stats.sh` | Calcula contigs, longitud, N50 y GC%. |
-| `08_render_quality_report.sh` | Genera el informe HTML de calidad. |
 | `10_run_strainr.sh` | Fase 2: compara lecturas FASTQ contra `StrainR2DB`. No se ejecuta hasta agregar R1/R2. |
-| `11_render_results_report.sh` | Genera el informe de gráficos de resultados. |
+| `11_render_results_report.sh` | Genera el informe integrado de resultados. |
+| `12_render_informative_report.sh` | Genera el informe integrado con dispersión y mapa de calor. |
 
 ## Fases del protocolo
 
@@ -97,7 +97,7 @@ La ejecución de `PreProcessR` terminó correctamente con:
 - 3.706 subcontigs útiles y 18 excluidos.
 - 98,4020% de unicidad promedio en subcontigs útiles.
 
-Los resultados publicados incluyen `calidad_26_cepas.tsv`, `calidad_26_cepas.Rmd`, `calidad_26_cepas.html`, `results/kmer_summary_by_strain.tsv` y `results/kmer_summary_global.tsv`.
+Los resultados publicados incluyen `results/assembly_stats.tsv`, `resultados_strainr2.Rmd`, `resultados_strainr2.html`, `results/kmer_summary_by_strain.tsv` y `results/kmer_summary_global.tsv`.
 
 ## Ejecutar StrainR con lecturas FASTQ
 
