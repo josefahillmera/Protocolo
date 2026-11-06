@@ -36,6 +36,14 @@ En total se registraron 3.724 subcontigs: 3.706 fueron útiles y 18 fueron exclu
 
 La cepa con menor unicidad promedio fue `B28_C04` (93,11%); las cepas con mayor unicidad fueron `B28_A08`, `B28_J07` y `B28_F03`, todas por encima de 99,3%. Estos valores indican capacidad de diferenciación de la referencia, no abundancia en muestras.
 
+## Significado de `kmer_summary_global.tsv`
+
+- `records`: número total de registros de subcontigs procesados.
+- `excluded`: registros marcados como `EXCLUDED`, generalmente fragmentos menores de 10.000 bp.
+- `useful`: registros no excluidos que aportan información para diferenciar cepas.
+- `Nunique_total`: suma de k-mers únicos de los subcontigs reportados.
+- `mean_percent_unique`: promedio de `Percent_Unique` en los subcontigs útiles.
+
 # Parámetros usados para construir la referencia
 
 ```{r parametros}
@@ -44,6 +52,17 @@ knitr::kable(opts, col.names=c("Parámetro", "Valor"))
 
 # Tabla integrada
 
+## Significado de `kmer_summary_by_strain.tsv`
+
+- `StrainID`: identificador de la cepa.
+- `Total_subcontigs`: subcontigs registrados para la cepa.
+- `Excluded`: subcontigs excluidos.
+- `Useful`: subcontigs no excluidos.
+- `Nunique_total`: k-mers únicos acumulados de la cepa.
+- `Mean_Percent_Unique`: unicidad promedio de sus subcontigs útiles.
+
+Una unicidad promedio alta indica mayor capacidad de diferenciación dentro del consorcio; no representa abundancia.
+
 ```{r tabla}
 knitr::kable(d[, c("cepa", "num_seqs", "sum_len", "N50", "GC(%)", "Useful", "Nunique_total", "Mean_Percent_Unique")], digits=2)
 ```
@@ -51,6 +70,16 @@ knitr::kable(d[, c("cepa", "num_seqs", "sum_len", "N50", "GC(%)", "Useful", "Nun
 # Continuidad del ensamblaje
 
 Estas métricas describen la calidad estructural de los FASTA antes de compararlos con lecturas metagenómicas. N50 alto y menos contigs suelen indicar mayor continuidad; GC permite revisar valores atípicos entre cepas.
+
+## Significado de `KmerContent.report`
+
+- `SubcontigID`: identificador compuesto por cepa, contig, coordenadas y longitud.
+- `StrainID`: genoma de origen.
+- `ContigID`: contig original; `EXCLUDED` identifica un fragmento excluido.
+- `Start_Stop`: coordenadas inicial y final dentro del contig.
+- `Length`: longitud del subcontig en pares de bases.
+- `Nunique`: número de k-mers únicos del subcontig.
+- `Percent_Unique`: porcentaje de k-mers únicos en toda la comunidad.
 
 ```{r continuidad, fig.width=9, fig.height=6}
 ggplot(d, aes(x=sum_len, y=N50, size=num_seqs, color=`GC(%)`, label=cepa)) +
