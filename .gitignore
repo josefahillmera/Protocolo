@@ -1,0 +1,17 @@
+# Datos y bases grandes: conservar fuera del repositorio Git normal.
+.DS_Store
+gbff/
+fasta/
+StrainR2DB/
+reads/
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+
+# Temporales y salidas pesadas
+*.sam
+*.bam
+*.rpkm
+*.abundance
+*.pdf

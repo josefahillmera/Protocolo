@@ -1,0 +1,27 @@
+Nombre del tubo	Procedencia	Nombre de la muestra	Fecha de almacenamiento a -80°C	Medio de aislamiento	pH	T°	Colonia (morfología/color)	Tinción de Gram (morfología)	Identificación 16S	Identificación Genoma completo 1° secuenciación	Identificación Genoma completo 2° secuenciación	Observaciones elección	Síntesis IAA	ACC deaminasa	Solubilización de fosfatos 	Fijación de nitrógeno 	Resistencia a estrés hídrico	metadata_sheet	StrainID
+B2.8.A.08	Relave Nuevo	P32B	2023-07-17 00:00:00	PKV	7	30.0	Blancas-gris pequeñas, circulares-brillantes	bacilos -	Brevundimonas mediterranea (-)	Brevundimonas mediterranea_A	na		-	-	-	-		CEPARIO SYSTEMIX	B28_A08
+B2.8.B.03	Sauce	563	2023-07-21 00:00:00	LB	7	30.0	Red tipo micelio (césped), translúcidas	bacilos cortos - 	Olivibacter jilunii	Pseudosphingobacterium jilunii (-)	na		-	-	-	-	-	CEPARIO SYSTEMIX	B28_B03
+B2.8.B.06	Pino	599	2023-07-17 00:00:00	LB	7	30.0	Blancas/amarillas claras pequeñas, circulares-brillantes	bacilos + 	Paenarthrobacter nitroguajacolicus	Unclassified 	Paenarthrobacter nitroguajacolicus		+	-	+	-	-	CEPARIO SYSTEMIX	B28_B06
+B2.8.C.04	Relave Nuevo	Cu 46	2023-07-17 00:00:00	KB + Cobre (10mM)	7	30.0	Blancas café claro pequeñas, circulares-brillantes	bacilos cortos -	"	Pseudomonas peli"	Pseudomonas_E sp001465025	na		+	+	+	+	-	CEPARIO SYSTEMIX	B28_C04
+B2.8.C.09	Relave Nuevo	Cu 49	2025-05-05 00:00:00	KB + Cobre (10mM)	7	30.0	Blancas translúcidas muy pequeñas, circulares brillantes	bacilos cortos -	Ralstonia pseudosolanacearum (-)	AKCV01 (-) misma familia (16S Burkholderiaceae)	na			-	-	-	-	CEPARIO SYSTEMIX	B28_C09
+B2.8.D.05	Relave Nuevo	479	2023-07-17 00:00:00	LB	7	30.0	Blancas translúcidas muy pequeñas, circulares brillantes REPETIR PLACA	bacilos -	Stutzerimonas chloritidismutans (-)	Stutzerimonas chloritidismutans	na		+	+	-	-	-	CEPARIO SYSTEMIX	B28_D05
+B2.8.D.06	Relave Nuevo	P29B	2025-03-17 00:00:00	PKV	7	30.0	Amarillas anaranjadas pequeñas, circulares-brillantes	bacilos cortos -	Variovorax paradoxus (-)	Variovorax sp003019815	na		+	+	-	-	-	CEPARIO SYSTEMIX	B28_D06
+B2.8.D.07	Sauce	441	2023-07-24 00:00:00	LB	7	30.0	Café-anaranjadas medianas, circulares-brillantes	bacilos -	Pseudoxanthomonas japonensis (-)	Pseudoxanthomonas_A	na		-	+	-	-	-	CEPARIO SYSTEMIX	B28_D07
+B2.8.D.08	Pino	448,1	2023-07-24 00:00:00	King's B	7	30.0	Amarillas claras-anaranjadas pequeñas, circulares-brillantes	bacilos cortos +	Leifsonia shinshuensis (+)	Leifsonia	na		-	-	+	-	-	CEPARIO SYSTEMIX	B28_D08
+B2.8.D.10	Relave Intermedio	muestra 17 (3)	2024-07-10 00:00:00	R2A	7	30.0	Amarillas pálido/ anaranjadas pequeñas, circulares-brillantes	cocos +	Kocuria arsenatis/ K.rhizophila	na	RESECUENCIAR?							CEPARIO SYSTEMIX	B28_D10
+B2.8.E.03	Relave Intermedio	muestra 13  (C1.1)	2025-04-11 00:00:00	R2A	7	30.0	Blancas crema grandes, circulares-brillantes	bacilos +	Bacillus zanthoxyli/ Priestia aryabhattai	na	Priestia megaterium							CEPARIO SYSTEMIX	B28_E03
+B2.8.E.05	Relave Nuevo	muestra 23 (C27.2)	2025-03-17 00:00:00	Nutrient	7	30.0	Blancas crema grandes, circulares-brillantes	bacilos cortos -	Alishewanella jeotgali (-)	na	Alishewanella agri							CEPARIO SYSTEMIX	B28_E05
+B2.8.E.09	Pino	585	2025-03-20 00:00:00	GY	7	30.0	Blancas con bordes transparentes, irregulares	bacilos cortos -	Olivibacter soli	Pseudosphingobacterium (-)	Pseudosphingobacterium		-	-	+	-	-	CEPARIO SYSTEMIX	B28_E09
+B2.8.F.03	Pino	111	2023-12-13 00:00:00	LB	7	30.0	Blancas crema muy pequeñas, circulares-brillantes	cocos +	Arthrobacter globiformis	Unclassified Bacteria	Arthrobacter		-	-	-	-	-	CEPARIO SYSTEMIX	B28_F03
+B2.8.F.05	Sauce	552	2025-03-20 00:00:00	King's B	7	30.0	Anaranjadas claro pequeñas, ovaladas-brillantes	bacilos -	Chitinophaga salinisoli (-)	Chitinophaga sp008086345	Chitinophaga		+	+	+	-	-	CEPARIO SYSTEMIX	B28_F05
+B2.8.F.06	Pino	578	2023-12-13 00:00:00	LB	7	30.0	Blancas translúcidas muy pequeñas (césped), circulares-brillantes	bacilos cortos -	Paraburkholderia graminis (-)	Paraburkholderia graminis	na		+	+	+	-	-	CEPARIO SYSTEMIX	B28_F06
+B2.8.H.01	Pino	334	2025-03-17 00:00:00	GYS	4,5/7	30.0	Blancas muy pequeñas, circulares	cocos diplococos +	Staphylococcus capitis 	na	Staphylococcus capitis							CEPARIO SYSTEMIX	B28_H01
+B2.8.H.03	Relave Viejo	SA01	2025-03-17 00:00:00	King's B	7	30.0	Blancas medianas, circulares-brillantes	estreptobacilos +	Neobacillus dentrensis (+ o variable)	na	Neobacillus sp018613065							CEPARIO SYSTEMIX	B28_H03
+B2.8.H.04	Relave Viejo	SA02	2024-09-12 00:00:00	King's B	7	30.0	Café claro grandes, circulares-brillantes	estreptobacilos +	Peribacillus simplex 	Peribacillus frigoritolerans	na		+	+	-	-	-	CEPARIO SYSTEMIX	B28_H04
+B2.8.H.05	Relave Viejo	SA03	2025-03-17 00:00:00	LB	7	30.0	Blancas pequeñas, circulares-brillantes	bacilos -	Herbaspirillum rubrisubalbicans (-)	Herbaspirillum sp000261365	Herbaspirillum sp000261365		+	+	-	-	-	CEPARIO SYSTEMIX	B28_H05
+B2.8.H.06	Relave Viejo	SA05	2025-03-17 00:00:00	LB 10 mM Cu	7	30.0	Blancas café grandes, circulares	bacilos -	Pseudomonas petroselini 	Pseudomonas_E veronii	Pseudomonas_E veronii		+	-	+	-	-	CEPARIO SYSTEMIX	B28_H06
+B2.8.H.07	Relave Viejo	SA09	2024-09-12 00:00:00	LB	7	30.0	Blancas medianas, ovaladas- brillantes, viscosas	bacilos -	Acinetobacter shaoyimingii (-)	Acinetobacter	na		+	-	+	-	-	CEPARIO SYSTEMIX	B28_H07
+B2.8.J.03																		CEPARIO SYSTEMIX	B28_J03
+B2.8.J.07																		CEPARIO SYSTEMIX	B28_J07
+B2.8.J.08																		CEPARIO SYSTEMIX	B28_J08
+B2.8.J.10																		CEPARIO SYSTEMIX	B28_J10

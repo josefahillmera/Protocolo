@@ -1,0 +1,160 @@
+---
+title: "Calidad de los ensamblajes de las 26 cepas"
+author: ""
+date: "`r format(Sys.Date(), '%Y-%m-%d')`"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+
+library(ggplot2)
+library(scales)
+```
+
+# Objetivo
+
+Este informe resume las métricas de calidad de los 26 archivos FASTA generadas con `seqkit stats -a`.
+
+Las métricas principales son el número de contigs, la longitud total del ensamblaje, el N50 y el contenido GC.
+
+# Carga de datos
+
+El archivo `calidad_26_cepas.tsv` se generó con:
+
+```bash
+seqkit stats -a ./fasta/*.fna > calidad_26_cepas.tsv
+```
+
+```{r importar-datos}
+archivo_calidad <- "calidad_26_cepas.tsv"
+
+datos <- read.table(
+  archivo_calidad,
+  header = TRUE,
+  sep = "",
+  quote = "",
+  comment.char = "",
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+
+datos$cepa <- basename(datos$file)
+datos$cepa <- sub("\\.fna$", "", datos$cepa)
+datos$cepa <- sub("^[0-9]+_", "", datos$cepa)
+
+columnas_numericas <- c(
+  "num_seqs", "sum_len", "min_len", "avg_len",
+  "max_len", "N50", "GC(%)", "sum_n"
+)
+
+for (columna in columnas_numericas) {
+  datos[[columna]] <- as.numeric(gsub(",", "", datos[[columna]]))
+}
+
+datos <- datos[order(datos$N50), ]
+datos$cepa <- factor(datos$cepa, levels = datos$cepa)
+
+stopifnot(nrow(datos) == 26)
+```
+
+# Tabla resumen
+
+```{r tabla-resumen}
+tabla_resumen <- datos[, c(
+  "cepa", "num_seqs", "sum_len", "min_len",
+  "max_len", "N50", "GC(%)"
+)]
+
+knitr::kable(
+  tabla_resumen,
+  digits = 2,
+  col.names = c(
+    "Cepa", "Contigs", "Longitud total (bp)",
+    "Contig mínimo (bp)", "Contig máximo (bp)",
+    "N50 (bp)", "GC (%)"
+  ),
+  caption = "Métricas básicas de los 26 ensamblajes"
+)
+```
+
+# N50 por cepa
+
+Un N50 mayor indica, en general, un ensamblaje más continuo.
+
+```{r grafico-n50, fig.width=9, fig.height=7}
+ggplot(datos, aes(x = cepa, y = N50)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "N50 de los ensamblajes",
+    x = "Cepa",
+    y = "N50 (bp)"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+# Longitud total de los ensamblajes
+
+```{r grafico-longitud, fig.width=9, fig.height=7}
+ggplot(datos, aes(x = reorder(cepa, sum_len), y = sum_len)) +
+  geom_col(fill = "mediumpurple") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Longitud total de los ensamblajes",
+    x = "Cepa",
+    y = "Longitud total (bp)"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+# Número de contigs
+
+Un número mayor de contigs suele indicar un ensamblaje más fragmentado.
+
+```{r grafico-contigs, fig.width=9, fig.height=7}
+ggplot(datos, aes(x = reorder(cepa, num_seqs), y = num_seqs)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Número de contigs por cepa",
+    x = "Cepa",
+    y = "Número de contigs"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+# Contenido GC
+
+```{r grafico-gc, fig.width=9, fig.height=7}
+ggplot(datos, aes(x = reorder(cepa, `GC(%)`), y = `GC(%)`)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "Contenido GC de los ensamblajes",
+    x = "Cepa",
+    y = "GC (%)"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+# Interpretación
+
+- Un N50 alto y pocos contigs suelen indicar mayor continuidad del ensamblaje.
+- La longitud total debe ser compatible con el tamaño esperado del genoma.
+- El contenido GC puede ayudar a detectar valores atípicos entre cepas relacionadas.
+- `Q20(%)` y `Q30(%)` aparecen como cero porque estos archivos son FASTA y no contienen calidades Phred de lecturas.
+
+```{r session-info}
+sessionInfo()
+```
