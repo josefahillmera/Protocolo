@@ -51,6 +51,40 @@ gzip -cd reads/muestra_R1.fastq.gz | awk 'NR==2 {print length($0); exit}'
 | `06_summarize_kmers.sh` | Resume `KmerContent.report` por cepa y globalmente. |
 | `07_seqkit_stats.sh` | Calcula contigs, longitud, N50 y GC%. |
 | `08_render_quality_report.sh` | Genera el informe HTML de calidad. |
+| `10_run_strainr.sh` | Fase 2: compara lecturas FASTQ contra `StrainR2DB`. No se ejecuta hasta agregar R1/R2. |
+| `11_render_results_report.sh` | Genera el informe de gráficos de resultados. |
+
+## Fases del protocolo
+
+### Fase 1: preparar la referencia
+
+Esta fase ya fue ejecutada y produjo `StrainR2DB`. Para repetirla desde cero, agrega los GBFF en `gbff/` y ejecuta los scripts 01–08. `PreProcessR` calcula subcontigs, k-mers únicos y el índice BBMap.
+
+### Fase 2: comparar lecturas contra la referencia
+
+Esta fase queda preparada, pero no fue ejecutada porque todavía deben agregarse las lecturas metagenómicas. Coloca los archivos paired-end en:
+
+```text
+StrainR2/reads/muestra_R1.fastq.gz
+StrainR2/reads/muestra_R2.fastq.gz
+```
+
+Confirma la longitud de lectura y ejecuta:
+
+```bash
+bash scripts/10_run_strainr.sh \
+  reads/muestra_R1.fastq.gz \
+  reads/muestra_R2.fastq.gz \
+  muestra
+```
+
+Para un equipo con 8 GB de RAM se usan por defecto 4 hilos y 4 GB para BBMap. Se pueden cambiar:
+
+```bash
+THREADS=2 MEM_GB=3 bash scripts/10_run_strainr.sh reads/R1.fastq.gz reads/R2.fastq.gz muestra
+```
+
+Los resultados se guardarán en `resultados/muestra/` y deben incluir tablas de abundancia, mapeo y una figura.
 
 ## Resultados ya obtenidos
 

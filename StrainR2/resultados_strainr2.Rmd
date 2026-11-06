@@ -1,0 +1,114 @@
+---
+title: "Resultados de la referencia StrainR2"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(ggplot2)
+library(scales)
+library(knitr)
+```
+
+# Datos de entrada
+
+```{r importar}
+calidad <- read.table(
+  "calidad_26_cepas.tsv",
+  header = TRUE, sep = "", quote = "", comment.char = "",
+  check.names = FALSE, stringsAsFactors = FALSE
+)
+
+calidad$cepa <- basename(calidad$file)
+calidad$cepa <- sub("\\.fna$", "", calidad$cepa)
+calidad$cepa <- sub("^[0-9]+_", "", calidad$cepa)
+
+numeric_cols <- c("num_seqs", "sum_len", "min_len", "avg_len", "max_len", "N50", "GC(%)")
+for (x in numeric_cols) calidad[[x]] <- as.numeric(gsub(",", "", calidad[[x]]))
+
+kmer <- read.table(
+  "results/kmer_summary_by_strain.tsv",
+  header = TRUE, sep = "\t", quote = "", comment.char = "",
+  check.names = FALSE, stringsAsFactors = FALSE
+)
+kmer$cepa <- sub("^[0-9]+_", "", kmer$StrainID)
+```
+
+# Métricas de ensamblaje
+
+```{r tabla-calidad}
+tabla <- calidad[, c("cepa", "num_seqs", "sum_len", "N50", "GC(%)")]
+colnames(tabla) <- c("Cepa", "Contigs", "Longitud_total_bp", "N50_bp", "GC_percent")
+kable(tabla, digits = 2)
+```
+
+```{r n50, fig.width=9, fig.height=7}
+ggplot(calidad, aes(x = reorder(cepa, N50), y = N50)) +
+  geom_col(fill = "#2C7FB8") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(x = NULL, y = "N50 (bp)", title = NULL, subtitle = NULL) +
+  theme_minimal(base_size = 12)
+```
+
+```{r longitud, fig.width=9, fig.height=7}
+ggplot(calidad, aes(x = reorder(cepa, sum_len), y = sum_len)) +
+  geom_col(fill = "#7B3294") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(x = NULL, y = "Longitud total (bp)", title = NULL, subtitle = NULL) +
+  theme_minimal(base_size = 12)
+```
+
+```{r contigs, fig.width=9, fig.height=7}
+ggplot(calidad, aes(x = reorder(cepa, num_seqs), y = num_seqs)) +
+  geom_col(fill = "#008837") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(x = NULL, y = "Número de contigs", title = NULL, subtitle = NULL) +
+  theme_minimal(base_size = 12)
+```
+
+```{r gc, fig.width=9, fig.height=7}
+ggplot(calidad, aes(x = reorder(cepa, `GC(%)`), y = `GC(%)`)) +
+  geom_col(fill = "#E08214") +
+  coord_flip() +
+  labs(x = NULL, y = "GC (%)", title = NULL, subtitle = NULL) +
+  theme_minimal(base_size = 12)
+```
+
+# K-mers únicos por cepa
+
+```{r kmer-unicidad, fig.width=9, fig.height=7}
+ggplot(kmer, aes(x = reorder(cepa, Mean_Percent_Unique), y = Mean_Percent_Unique)) +
+  geom_col(fill = "#1B9E77") +
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 10)) +
+  labs(x = NULL, y = "Unicidad promedio (%)", title = NULL, subtitle = NULL) +
+  theme_minimal(base_size = 12)
+```
+
+```{r kmer-total, fig.width=9, fig.height=7}
+ggplot(kmer, aes(x = reorder(cepa, Nunique_total), y = Nunique_total)) +
+  geom_col(fill = "#D95F02") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(x = NULL, y = "K-mers únicos acumulados", title = NULL, subtitle = NULL) +
+  theme_minimal(base_size = 12)
+```
+
+# Resumen de la preparación
+
+```{r resumen-global}
+global <- read.table(
+  "results/kmer_summary_global.tsv",
+  header = FALSE, sep = "\t", stringsAsFactors = FALSE
+)
+colnames(global) <- c("Metrica", "Valor")
+kable(global, col.names = c("Métrica", "Valor"))
+```
+
+La ejecución de `PreProcessR` terminó correctamente. La comparación de lecturas y la estimación de abundancias corresponden a la Fase 2 y se ejecutan con el script `scripts/10_run_strainr.sh` cuando estén disponibles los archivos FASTQ.
