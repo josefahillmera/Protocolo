@@ -18,6 +18,28 @@ for (x in c("num_seqs", "sum_len", "N50", "GC(%)")) q[[x]] <- as.numeric(gsub(",
 k <- read.table("results/kmer_summary_by_strain.tsv", header=TRUE, sep="\t", check.names=FALSE)
 k$cepa <- sub("^[0-9]+_", "", k$StrainID)
 d <- merge(q, k, by="cepa")
+global <- read.table("results/kmer_summary_global.tsv", header=FALSE, sep="\t", stringsAsFactors=FALSE)
+colnames(global) <- c("metrica", "valor")
+opts <- read.table("results/StrainR2_options.txt", header=FALSE, sep="\t", stringsAsFactors=FALSE)
+colnames(opts) <- c("parametro", "valor")
+```
+
+# Resumen global de la referencia
+
+La Fase 1 de `PreProcessR` terminó correctamente y produjo una base de referencia para las 26 cepas. El resumen calculado directamente desde `KmerContent.report` es:
+
+```{r resumen-global}
+knitr::kable(global, col.names=c("Métrica", "Valor"))
+```
+
+En total se registraron 3.724 subcontigs: 3.706 fueron útiles y 18 fueron excluidos. La unicidad promedio de los subcontigs útiles fue 98,4020%. El resultado global del programa informó 129.551.558 k-mers diferentes y 128.620.910 k-mers únicos, aproximadamente 99,28% de unicidad global.
+
+La cepa con menor unicidad promedio fue `B28_C04` (93,11%); las cepas con mayor unicidad fueron `B28_A08`, `B28_J07` y `B28_F03`, todas por encima de 99,3%. Estos valores indican capacidad de diferenciación de la referencia, no abundancia en muestras.
+
+# Parámetros usados para construir la referencia
+
+```{r parametros}
+knitr::kable(opts, col.names=c("Parámetro", "Valor"))
 ```
 
 # Tabla integrada
@@ -27,6 +49,8 @@ knitr::kable(d[, c("cepa", "num_seqs", "sum_len", "N50", "GC(%)", "Useful", "Nun
 ```
 
 # Continuidad del ensamblaje
+
+Estas métricas describen la calidad estructural de los FASTA antes de compararlos con lecturas metagenómicas. N50 alto y menos contigs suelen indicar mayor continuidad; GC permite revisar valores atípicos entre cepas.
 
 ```{r continuidad, fig.width=9, fig.height=6}
 ggplot(d, aes(x=sum_len, y=N50, size=num_seqs, color=`GC(%)`, label=cepa)) +
