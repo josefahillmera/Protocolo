@@ -797,6 +797,71 @@ Fase 2, que compara lecturas FASTQ mediante
 <code>scripts/10_run_strainr.sh</code>, queda preparada pero no se
 ejecuta en este informe.</p>
 </div>
+<div id="evaluación-de-la-referencia" class="section level1">
+<h1>Evaluación de la referencia</h1>
+<div id="evidencia-favorable" class="section level2">
+<h2>Evidencia favorable</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Indicador</th>
+<th align="left">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Cepa con unicidad &gt;=95%</td>
+<td align="left">25 de 26</td>
+</tr>
+<tr class="even">
+<td align="left">Cepa con unicidad &gt;=98%</td>
+<td align="left">19 de 26</td>
+</tr>
+<tr class="odd">
+<td align="left">Cepa con unicidad &gt;=99%</td>
+<td align="left">10 de 26</td>
+</tr>
+<tr class="even">
+<td align="left">Menor unicidad</td>
+<td align="left">04_B28_C04 (93.11%)</td>
+</tr>
+<tr class="odd">
+<td align="left">Mayor unicidad</td>
+<td align="left">01_B28_A08 (99.47%)</td>
+</tr>
+</tbody>
+</table>
+<p>La referencia presenta evidencia favorable para StrainR2: las 26
+cepas tienen subcontigs útiles, 25 de 26 presentan al menos 95% de
+unicidad promedio y 19 de 26 al menos 98%. La menor unicidad corresponde
+a <code>B28_C04</code> (93,11%), mientras que la mayor corresponde a
+<code>B28_A08</code> (99,47%). En conjunto, la referencia parece
+adecuada para una primera cuantificación a nivel de cepa.</p>
+</div>
+<div id="qué-significa-diferenciar-aquí" class="section level2">
+<h2>Qué significa “diferenciar” aquí</h2>
+<p><code>Percent_Unique</code> alto significa que muchos k-mers de los
+subcontigs no aparecen en los demás genomas del consorcio. Esto favorece
+la asignación de lecturas a una cepa. No significa que las cepas estén
+igualmente alejadas evolutivamente ni garantiza que todas puedan
+detectarse en una muestra de baja profundidad.</p>
+<p>Para confirmar que cada par de cepas es distinguible se necesitaría
+una comparación pairwise de los genomas o de sus conjuntos de k-mers,
+por ejemplo ANI, Mash o una matriz de similitud. Esa información no está
+contenida en <code>KmerContent.report</code>, que guarda conteos y
+porcentajes por subcontig, no las identidades completas de todos los
+k-mers.</p>
+</div>
+<div id="conclusión-operacional" class="section level2">
+<h2>Conclusión operacional</h2>
+<p>La base puede considerarse <strong>apta como referencia
+inicial</strong> porque tiene 3.706 subcontigs útiles y una unicidad
+promedio de 98,4020%. <code>B28_C04</code> debe interpretarse con mayor
+cautela por su menor unicidad. La validación definitiva será la Fase 2:
+una muestra simulada o controlada con las 26 cepas debería recuperar las
+cepas presentes y mantener bajas las señales de las ausentes.</p>
+</div>
+</div>
 
 
 

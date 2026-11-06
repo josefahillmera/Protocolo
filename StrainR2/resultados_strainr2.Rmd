@@ -113,3 +113,33 @@ ggplot(h, aes(x=metrica, y=cepa, fill=valor)) +
 ```
 
 La Fase 1 corresponde a la preparación de `StrainR2DB`. La Fase 2, que compara lecturas FASTQ mediante `scripts/10_run_strainr.sh`, queda preparada pero no se ejecuta en este informe.
+
+# Evaluación de la referencia
+
+## Evidencia favorable
+
+```{r evaluacion}
+n <- nrow(k)
+ge95 <- sum(k$Mean_Percent_Unique >= 95)
+ge98 <- sum(k$Mean_Percent_Unique >= 98)
+ge99 <- sum(k$Mean_Percent_Unique >= 99)
+min_u <- k[which.min(k$Mean_Percent_Unique), c("StrainID", "Mean_Percent_Unique")]
+max_u <- k[which.max(k$Mean_Percent_Unique), c("StrainID", "Mean_Percent_Unique")]
+eval <- data.frame(
+  Indicador=c("Cepa con unicidad >=95%", "Cepa con unicidad >=98%", "Cepa con unicidad >=99%", "Menor unicidad", "Mayor unicidad"),
+  Resultado=c(paste(ge95, "de", n), paste(ge98, "de", n), paste(ge99, "de", n), paste(min_u$StrainID, sprintf("(%.2f%%)", min_u$Mean_Percent_Unique)), paste(max_u$StrainID, sprintf("(%.2f%%)", max_u$Mean_Percent_Unique)))
+)
+knitr::kable(eval)
+```
+
+La referencia presenta evidencia favorable para StrainR2: las 26 cepas tienen subcontigs útiles, 25 de 26 presentan al menos 95% de unicidad promedio y 19 de 26 al menos 98%. La menor unicidad corresponde a `B28_C04` (93,11%), mientras que la mayor corresponde a `B28_A08` (99,47%). En conjunto, la referencia parece adecuada para una primera cuantificación a nivel de cepa.
+
+## Qué significa “diferenciar” aquí
+
+`Percent_Unique` alto significa que muchos k-mers de los subcontigs no aparecen en los demás genomas del consorcio. Esto favorece la asignación de lecturas a una cepa. No significa que las cepas estén igualmente alejadas evolutivamente ni garantiza que todas puedan detectarse en una muestra de baja profundidad.
+
+Para confirmar que cada par de cepas es distinguible se necesitaría una comparación pairwise de los genomas o de sus conjuntos de k-mers, por ejemplo ANI, Mash o una matriz de similitud. Esa información no está contenida en `KmerContent.report`, que guarda conteos y porcentajes por subcontig, no las identidades completas de todos los k-mers.
+
+## Conclusión operacional
+
+La base puede considerarse **apta como referencia inicial** porque tiene 3.706 subcontigs útiles y una unicidad promedio de 98,4020%. `B28_C04` debe interpretarse con mayor cautela por su menor unicidad. La validación definitiva será la Fase 2: una muestra simulada o controlada con las 26 cepas debería recuperar las cepas presentes y mantener bajas las señales de las ausentes.
