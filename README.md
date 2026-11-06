@@ -17,7 +17,7 @@ Las carpetas incluidas en el repositorio contienen un `README.md` que explica qu
 
 ## Requisitos
 
-Se requiere macOS o Linux, Miniforge/Conda/Mamba y conexión a internet. StrainR2 puede ejecutarse en macOS/Linux. StrainScan requiere un entorno Linux separado.
+Se requiere macOS o Linux, Miniforge/Conda/Mamba y conexión a internet. StrainR2 puede ejecutarse en macOS/Linux.
 
 ## Instalación y ejecución completa
 

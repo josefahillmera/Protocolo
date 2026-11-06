@@ -25,7 +25,7 @@ Protocolo/
 
 ## Requisitos
 
-- macOS/Linux para StrainR2; StrainScan requiere Linux/Ubuntu o un contenedor Linux.
+- macOS/Linux para StrainR2.
 - Miniforge/Conda/Mamba.
 - Lecturas metagenómicas paired-end FASTQ para ejecutar la etapa final de `StrainR`.
 - Confirmar la longitud real de las lecturas antes de usar `--readsize`.
